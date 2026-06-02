@@ -642,7 +642,9 @@ img, svg, canvas { display: block; max-width: 100%; }
   .nav__links.open { opacity: 1; transform: none; pointer-events: auto; }
   .nav__links a { padding: 12px 14px; }
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
-  .rings { grid-template-columns: 1fr; max-width: 420px; }
+  /* one centered column; cards grow and the ring scales up to fill them */
+  .rings { grid-template-columns: 1fr; max-width: 520px; margin-inline: auto; }
+  .ring-wrap { width: clamp(220px, 64vw, 320px); }
   /* fixed-size cells on mobile so the heatmap stays legible and scrolls within its card */
   .heatmap { grid-auto-columns: 12px; }
 }
