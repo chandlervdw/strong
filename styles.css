@@ -484,8 +484,8 @@ img, svg, canvas { display: block; max-width: 100%; }
   display: grid;
   grid-auto-flow: column;
   grid-template-rows: repeat(7, 1fr);
+  grid-auto-columns: 1fr; /* fit the full year into the card on desktop (no scroll) */
   gap: 3px;
-  min-width: 640px;
 }
 .hm-cell {
   width: 100%;
@@ -493,7 +493,9 @@ img, svg, canvas { display: block; max-width: 100%; }
   border-radius: 3px;
   background: rgba(140, 160, 220, 0.07);
 }
-.heatmap .hm-cell { min-width: 11px; }
+.heatmap-wrap::-webkit-scrollbar { height: 6px; }
+.heatmap-wrap::-webkit-scrollbar-thumb { background: rgba(140, 160, 220, 0.25); border-radius: 3px; }
+.heatmap-wrap::-webkit-scrollbar-track { background: transparent; }
 .hm-0 { background: rgba(140, 160, 220, 0.07); }
 .hm-1 { background: rgba(34, 211, 238, 0.28); }
 .hm-2 { background: rgba(34, 211, 238, 0.5); }
@@ -641,6 +643,8 @@ img, svg, canvas { display: block; max-width: 100%; }
   .nav__links a { padding: 12px 14px; }
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
   .rings { grid-template-columns: 1fr; max-width: 420px; }
+  /* fixed-size cells on mobile so the heatmap stays legible and scrolls within its card */
+  .heatmap { grid-auto-columns: 12px; }
 }
 @media (max-width: 420px) {
   .stats-grid { grid-template-columns: 1fr; }
