@@ -1,0 +1,12 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor / tooling
+.claude/
+.vscode/
+*.log
+
+# Raw Strong export is kept local — the published site only needs data.js (aggregates).
+# Delete the line below if you'd rather publish the raw export for reproducibility.
+strong_workouts.csv

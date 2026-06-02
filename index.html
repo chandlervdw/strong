@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#07080F" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><polygon points='16,4 29,28 3,28' fill='%2322d3ee'/></svg>" />
+  <title>Lifting Log — A Decade Under the Bar</title>
+  <meta name="description" content="Ten years of training from the Strong app, visualized: personal records, strength over time, and how close I am to my all-time bests." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- defer => executes in order after parse: Chart.js, then data, then app -->
+  <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script defer src="data.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#records">Skip to content</a>
+  <div class="scrollbar" id="scrollbar" aria-hidden="true"></div>
+  <div class="backdrop" aria-hidden="true">
+    <div class="backdrop__grid"></div>
+    <div class="backdrop__glow backdrop__glow--cyan"></div>
+    <div class="backdrop__glow backdrop__glow--magenta"></div>
+  </div>
+
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a class="nav__brand" href="#records">
+        <span class="nav__mark">▲</span> LIFTING<span class="nav__brand-accent">LOG</span>
+      </a>
+      <button class="nav__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav__links" id="navLinks" aria-label="Section navigation">
+        <a href="#records">Records</a>
+        <a href="#totals">Totals</a>
+        <a href="#progress">Progress</a>
+        <a href="#consistency">Consistency</a>
+        <a href="#exercises">Exercises</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- 1. HERO — PERSONAL RECORDS -->
+    <section class="section hero" id="records">
+      <div class="container">
+        <p class="eyebrow reveal" id="heroEyebrow">Under the bar since 2016</p>
+        <h1 class="hero__title reveal">Personal<br /><span class="hero__title-accent">Records</span></h1>
+        <p class="hero__sub reveal">Nine-plus years of training, distilled. Here's how close I am <em>right now</em> to my all-time bests on the big three.</p>
+
+        <div class="hero__total reveal" id="heroTotal">
+          <div class="hero__total-num"><span class="count" data-count="1240">0</span><span class="hero__total-unit">lb</span></div>
+          <div class="hero__total-label">Powerlifting total — heaviest squat + bench + deadlift singles</div>
+        </div>
+
+        <div class="rings" id="rings" aria-label="Personal record progress for squat, bench press, and deadlift">
+          <!-- ring cards injected by app.js -->
+        </div>
+
+        <a class="scroll-cue reveal" href="#totals" aria-label="Scroll to lifetime totals">
+          <span>A decade in numbers</span>
+          <span class="scroll-cue__arrow">↓</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- 2. LIFETIME TOTALS -->
+    <section class="section" id="totals">
+      <div class="container">
+        <div class="section__head reveal">
+          <p class="eyebrow">The receipts</p>
+          <h2 class="section__title">A Decade In Numbers</h2>
+        </div>
+        <div class="stats-grid" id="statsGrid">
+          <!-- stat cards injected by app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. STRENGTH OVER TIME -->
+    <section class="section" id="progress">
+      <div class="container">
+        <div class="section__head reveal">
+          <p class="eyebrow">The climb</p>
+          <h2 class="section__title">Strength Over Time</h2>
+          <p class="section__lead">Estimated 1-rep max by month, across the whole journey. Tap a lift to toggle it.</p>
+        </div>
+        <div class="chart-controls reveal" id="lineToggles" role="group" aria-label="Toggle lifts on the chart"></div>
+        <div class="chart-card reveal">
+          <div class="chart-box">
+            <canvas id="progressChart" aria-label="Line chart of estimated one-rep max over time for squat, bench, and deadlift" role="img"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. CONSISTENCY -->
+    <section class="section" id="consistency">
+      <div class="container">
+        <div class="section__head reveal">
+          <p class="eyebrow">Showing up</p>
+          <h2 class="section__title">Consistency</h2>
+          <p class="section__lead">Every training day in the last year, and total volume moved per year.</p>
+        </div>
+
+        <div class="consistency-grid">
+          <div class="chart-card reveal">
+            <div class="card-label">Last 12 months</div>
+            <div class="heatmap-wrap">
+              <div class="heatmap" id="heatmap" role="img" aria-label="Calendar heatmap of training days over the last year"></div>
+            </div>
+            <div class="heatmap-legend">
+              <span>Less</span>
+              <span class="hm-cell hm-0"></span>
+              <span class="hm-cell hm-1"></span>
+              <span class="hm-cell hm-2"></span>
+              <span class="hm-cell hm-3"></span>
+              <span class="hm-cell hm-4"></span>
+              <span>More</span>
+            </div>
+          </div>
+
+          <div class="chart-card reveal">
+            <div class="card-label">Volume per year (lb)</div>
+            <div class="chart-box chart-box--short">
+              <canvas id="yearChart" aria-label="Bar chart of total weight lifted per year" role="img"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. EXERCISE EXPLORER -->
+    <section class="section" id="exercises">
+      <div class="container">
+        <div class="section__head reveal">
+          <p class="eyebrow">The whole arsenal</p>
+          <h2 class="section__title">Every Lift</h2>
+          <p class="section__lead"><span id="exCount">0</span> exercises with a real history. Search by name or filter by equipment.</p>
+        </div>
+
+        <div class="explorer-controls reveal">
+          <label class="search">
+            <span class="search__icon" aria-hidden="true">⌕</span>
+            <input type="search" id="exSearch" placeholder="Search exercises…" aria-label="Search exercises" autocomplete="off" />
+          </label>
+          <div class="filters" id="exFilters" role="group" aria-label="Filter by equipment"></div>
+        </div>
+
+        <div class="exercise-grid" id="exGrid" aria-live="polite"></div>
+        <p class="explorer-empty" id="exEmpty" hidden>No lifts match that search.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="footer__line" id="footerRange">—</p>
+      <p class="footer__meta">Built from a <a href="https://www.strong.app/" rel="noopener" target="_blank">Strong</a> export · est. 1RM via the Epley formula · <span id="footerUpdated"></span></p>
+    </div>
+  </footer>
+
+  <noscript>
+    <div class="noscript">This page renders your workout stats with JavaScript. Please enable it to view the charts and records.</div>
+  </noscript>
+</body>
+</html>
